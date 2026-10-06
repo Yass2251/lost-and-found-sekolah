@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lost &amp; Found Sekolah - Laporkan barang hilang atau barang yang kamu temukan agar lebih mudah kembali kepada pemiliknya."
+    />
+    <title>Lost &amp; Found Sekolah</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ============ LOADING ============ -->
+    <div class="page-loader" id="pageLoader" aria-hidden="true">
+      <div class="spinner"></div>
+      <p>Memuat data laporan…</p>
+    </div>
+
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-inner">
+        <a href="#beranda" class="brand">
+          <span class="brand-icon"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></span>
+          <span class="brand-text">
+            <strong>Lost &amp; Found</strong>
+            <small>Sekolah</small>
+          </span>
+        </a>
+
+        <nav class="nav-menu" id="navMenu" aria-label="Navigasi utama">
+          <a href="#beranda" class="nav-link active">Beranda</a>
+          <a href="#daftar" class="nav-link">Daftar Barang</a>
+          <a href="#cara-kerja" class="nav-link">Cara Kerja</a>
+          <button
+            class="btn btn-primary btn-sm nav-cta"
+            data-open-form="hilang"
+          >
+            <i class="fa-solid fa-plus"></i> Buat Laporan
+          </button>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Buka menu navigasi"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="beranda">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <span class="hero-badge"
+              ><i class="fa-solid fa-shield-heart"></i> Platform Laporan
+              Sekolah</span
+            >
+            <h1>Kehilangan atau menemukan barang?</h1>
+            <p class="hero-sub">
+              Laporkan barang hilang atau barang yang kamu temukan agar lebih
+              mudah kembali kepada pemiliknya.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-lg" data-open-form="hilang">
+                <i class="fa-solid fa-circle-question"></i> Laporkan Barang
+                Hilang
+              </button>
+              <button class="btn btn-success btn-lg" data-open-form="ditemukan">
+                <i class="fa-solid fa-hand-sparkles"></i> Laporkan Barang
+                Ditemukan
+              </button>
+            </div>
+            <ul class="hero-points">
+              <li>
+                <i class="fa-solid fa-check"></i> Gratis &amp; tanpa login
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Data tersimpan di perangkat
+              </li>
+              <li><i class="fa-solid fa-check"></i> Cepat dan mudah</li>
+            </ul>
+          </div>
+
+          <div class="hero-art" aria-hidden="true">
+            <div class="hero-card hero-card-1">
+              <span class="hc-icon blue"
+                ><i class="fa-solid fa-wallet"></i
+              ></span>
+              <div>
+                <strong>Dompet Hitam</strong>
+                <small
+                  ><i class="fa-solid fa-location-dot"></i> Kantin Lantai
+                  1</small
+                >
+              </div>
+              <span class="hc-badge red">Hilang</span>
+            </div>
+            <div class="hero-card hero-card-2">
+              <span class="hc-icon green"
+                ><i class="fa-solid fa-bottle-water"></i
+              ></span>
+              <div>
+                <strong>Tumbler Biru</strong>
+                <small
+                  ><i class="fa-solid fa-location-dot"></i> Lab Komputer</small
+                >
+              </div>
+              <span class="hc-badge green">Ditemukan</span>
+            </div>
+            <div class="hero-card hero-card-3">
+              <span class="hc-icon amber"><i class="fa-solid fa-key"></i></span>
+              <div>
+                <strong>Kunci Motor</strong>
+                <small
+                  ><i class="fa-solid fa-location-dot"></i> Parkiran
+                  Sekolah</small
+                >
+              </div>
+              <span class="hc-badge red">Hilang</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STATISTIK ============ -->
+      <section class="stats container" aria-label="Statistik laporan">
+        <article class="stat-card">
+          <span class="stat-icon blue"
+            ><i class="fa-solid fa-clipboard-list"></i
+          ></span>
+          <div class="stat-info">
+            <h3 id="statTotal">0</h3>
+            <p>Total Laporan</p>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon red"
+            ><i class="fa-solid fa-triangle-exclamation"></i
+          ></span>
+          <div class="stat-info">
+            <h3 id="statLost">0</h3>
+            <p>Barang Hilang</p>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon green"
+            ><i class="fa-solid fa-circle-check"></i
+          ></span>
+          <div class="stat-info">
+            <h3 id="statFound">0</h3>
+            <p>Barang Ditemukan</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============ DAFTAR BARANG ============ -->
+      <section class="items container" id="daftar">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker"
+              ><i class="fa-solid fa-box-open"></i> Daftar Barang</span
+            >
+            <h2>Barang hilang &amp; ditemukan</h2>
+            <p class="section-sub">
+              Cari berdasarkan nama barang, lalu saring dengan filter di bawah
+              ini.
+            </p>
+          </div>
+          <button class="btn btn-primary" data-open-form="hilang">
+            <i class="fa-solid fa-plus"></i> Tambah Laporan
+          </button>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Cari nama barang…"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label class="filter">
+              <span>Jenis</span>
+              <select id="filterType">
+                <option value="semua">Semua</option>
+                <option value="hilang">Hilang</option>
+                <option value="ditemukan">Ditemukan</option>
+              </select>
+            </label>
+
+            <label class="filter">
+              <span>Kategori</span>
+              <select id="filterCategory">
+                <option value="semua">Semua Kategori</option>
+              </select>
+            </label>
+
+            <label class="filter">
+              <span>Status</span>
+              <select id="filterStatus">
+                <option value="semua">Semua Status</option>
+                <option value="belum">Belum ditemukan</option>
+                <option value="ditemukan">Ditemukan</option>
+                <option value="diambil">Sudah diambil</option>
+              </select>
+            </label>
+
+            <button
+              class="btn btn-ghost btn-sm"
+              id="resetFilter"
+              title="Reset filter"
+            >
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <p class="result-info" id="resultInfo">Menampilkan 0 laporan</p>
+
+        <div class="items-grid" id="itemsGrid"></div>
+
+        <div class="empty-state hidden" id="emptyState">
+          <span class="empty-icon"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></span>
+          <h3>Barang tidak ditemukan</h3>
+          <p>
+            Tidak ada laporan yang cocok dengan pencarian atau filter yang kamu
+            pilih. Coba ubah kata kunci, atau buat laporan baru sekarang.
+          </p>
+          <button class="btn btn-primary" data-open-form="hilang">
+            <i class="fa-solid fa-plus"></i> Tambah Laporan
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ CARA KERJA ============ -->
+      <section class="how" id="cara-kerja">
+        <div class="container">
+          <div class="section-head center">
+            <div>
+              <span class="section-kicker"
+                ><i class="fa-solid fa-list-check"></i> Cara Kerja</span
+              >
+              <h2>Tiga langkah sederhana</h2>
+              <p class="section-sub">
+                Prosesnya cepat dan bisa dilakukan siapa saja di sekolah.
+              </p>
+            </div>
+          </div>
+
+          <div class="how-grid">
+            <article class="how-card">
+              <span class="how-num">1</span>
+              <span class="how-icon blue"
+                ><i class="fa-solid fa-pen-to-square"></i
+              ></span>
+              <h3>Buat Laporan</h3>
+              <p>
+                Isi form laporan: jenis, nama barang, kategori, lokasi, tanggal,
+                dan kontak pelapor.
+              </p>
+            </article>
+            <article class="how-card">
+              <span class="how-num">2</span>
+              <span class="how-icon amber"
+                ><i class="fa-solid fa-magnifying-glass"></i
+              ></span>
+              <h3>Cari &amp; Cocokkan</h3>
+              <p>
+                Gunakan pencarian dan filter untuk menemukan laporan yang sesuai
+                dengan barang kamu.
+              </p>
+            </article>
+            <article class="how-card">
+              <span class="how-num">3</span>
+              <span class="how-icon green"
+                ><i class="fa-solid fa-handshake"></i
+              ></span>
+              <h3>Barang Kembali</h3>
+              <p>
+                Hubungi pelapor, serahkan barangnya, lalu ubah status menjadi
+                <em>Sudah diambil</em>.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a href="#beranda" class="brand">
+            <span class="brand-icon"
+              ><i class="fa-solid fa-magnifying-glass"></i
+            ></span>
+            <span class="brand-text">
+              <strong>Lost &amp; Found</strong>
+              <small>Sekolah</small>
+            </span>
+          </a>
+          <p>Membantu barang kembali kepada pemiliknya.</p>
+        </div>
+        <nav class="footer-links" aria-label="Navigasi footer">
+          <a href="#beranda">Beranda</a>
+          <a href="#daftar">Daftar Barang</a>
+          <a href="#cara-kerja">Cara Kerja</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Lost &amp; Found Sekolah</p>
+      </div>
+    </footer>
+
+    <!-- ============ MODAL FORM (TAMBAH / EDIT) ============ -->
+    <div class="modal-overlay" id="formModal" aria-hidden="true">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="formModalTitle"
+      >
+        <div class="modal-head">
+          <h3 id="formModalTitle">
+            <i class="fa-solid fa-plus"></i> Tambah Laporan
+          </h3>
+          <button
+            class="icon-btn"
+            data-close="formModal"
+            aria-label="Tutup modal"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form id="reportForm" novalidate>
+          <div class="modal-body">
+            <div class="field">
+              <label for="fType"
+                >Jenis laporan <span class="req">*</span></label
+              >
+              <div class="segmented" id="typeSegment">
+                <button type="button" data-type="hilang" class="active">
+                  <i class="fa-solid fa-circle-question"></i> Hilang
+                </button>
+                <button type="button" data-type="ditemukan">
+                  <i class="fa-solid fa-hand-sparkles"></i> Ditemukan
+                </button>
+              </div>
+              <input type="hidden" id="fType" value="hilang" />
+            </div>
+
+            <div class="form-grid">
+              <div class="field span-2">
+                <label for="fName"
+                  >Nama barang <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="fName"
+                  placeholder="Contoh: Dompet hitam"
+                  maxlength="80"
+                />
+                <small class="field-error" data-error-for="fName"></small>
+              </div>
+
+              <div class="field">
+                <label for="fCategory"
+                  >Kategori <span class="req">*</span></label
+                >
+                <select id="fCategory">
+                  <option value="">Pilih kategori</option>
+                </select>
+                <small class="field-error" data-error-for="fCategory"></small>
+              </div>
+
+              <div class="field">
+                <label for="fStatus">Status <span class="req">*</span></label>
+                <select id="fStatus">
+                  <option value="belum">Belum ditemukan</option>
+                  <option value="ditemukan">Ditemukan</option>
+                  <option value="diambil">Sudah diambil</option>
+                </select>
+              </div>
+
+              <div class="field span-2">
+                <label for="fDesc"
+                  >Deskripsi barang <span class="req">*</span></label
+                >
+                <textarea
+                  id="fDesc"
+                  rows="3"
+                  placeholder="Ciri-ciri barang, warna, isi, dll."
+                  maxlength="400"
+                ></textarea>
+                <small class="field-error" data-error-for="fDesc"></small>
+              </div>
+
+              <div class="field span-2">
+                <label for="fLocation"
+                  >Lokasi kehilangan / penemuan
+                  <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="fLocation"
+                  placeholder="Contoh: Kantin lantai 1"
+                  maxlength="120"
+                />
+                <small class="field-error" data-error-for="fLocation"></small>
+              </div>
+
+              <div class="field">
+                <label for="fDate">Tanggal <span class="req">*</span></label>
+                <input type="date" id="fDate" />
+                <small class="field-error" data-error-for="fDate"></small>
+              </div>
+
+              <div class="field">
+                <label for="fReporter"
+                  >Nama pelapor <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="fReporter"
+                  placeholder="Contoh: Rina Kelas XI"
+                  maxlength="80"
+                />
+                <small class="field-error" data-error-for="fReporter"></small>
+              </div>
+
+              <div class="field span-2">
+                <label for="fContact"
+                  >Kontak pelapor <span class="req">*</span></label
+                >
+                <input
+                  type="text"
+                  id="fContact"
+                  placeholder="No. HP / ID sosial media"
+                  maxlength="60"
+                />
+                <small class="field-error" data-error-for="fContact"></small>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="fPhoto"
+                >Foto barang <span class="opt">(opsional)</span></label
+              >
+              <label class="upload-box" for="fPhoto" id="uploadBox">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span
+                  ><strong>Klik untuk upload foto</strong
+                  ><small>JPG / PNG / WEBP, otomatis dikompres</small></span
+                >
+              </label>
+              <input type="file" id="fPhoto" accept="image/*" hidden />
+              <div class="photo-preview hidden" id="photoPreview">
+                <img id="photoPreviewImg" alt="Pratinjau foto barang" />
+                <button
+                  type="button"
+                  class="icon-btn danger"
+                  id="removePhoto"
+                  aria-label="Hapus foto"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-close="formModal">
+              Batal
+            </button>
+            <button type="submit" class="btn btn-primary" id="saveBtn">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Laporan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============ MODAL DETAIL ============ -->
+    <div class="modal-overlay" id="detailModal" aria-hidden="true">
+      <div
+        class="modal modal-detail"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="detailTitle"
+      >
+        <div class="modal-head">
+          <h3 id="detailTitle">
+            <i class="fa-solid fa-circle-info"></i> Detail Laporan
+          </h3>
+          <button
+            class="icon-btn"
+            data-close="detailModal"
+            aria-label="Tutup modal"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="detailBody"></div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-close="detailModal">
+            Tutup
+          </button>
+          <button type="button" class="btn btn-primary" id="detailEditBtn">
+            <i class="fa-solid fa-pen"></i> Edit Laporan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ MODAL KONFIRMASI HAPUS ============ -->
+    <div class="modal-overlay" id="confirmModal" aria-hidden="true">
+      <div
+        class="modal modal-sm"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="confirmTitle"
+      >
+        <div class="modal-head">
+          <h3 id="confirmTitle">
+            <i class="fa-solid fa-triangle-exclamation danger"></i> Hapus
+            Laporan
+          </h3>
+          <button
+            class="icon-btn"
+            data-close="confirmModal"
+            aria-label="Tutup modal"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="confirm-text">
+            Apakah kamu yakin ingin menghapus laporan ini?
+          </p>
+          <p class="confirm-note">Data yang dihapus tidak bisa dikembalikan.</p>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-close="confirmModal">
+            Batal
+          </button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+            <i class="fa-solid fa-trash"></i> Ya, Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TOAST ============ -->
+    <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
